@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospitality Guide — Food Trucks &amp; Cafes (Auckland)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="bg-pattern" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-icon" aria-hidden="true">🍽️</span>
+        <span class="logo-text">
+          <strong>Hospitality</strong>
+          <span>Guide · Tāmaki Makaurau</span>
+        </span>
+      </a>
+      <nav class="header-nav">
+        <div class="view-tabs" role="tablist" aria-label="Main views">
+          <button class="view-tab active" role="tab" id="tab-guides" aria-selected="true" aria-controls="view-guides">Guides</button>
+          <button class="view-tab" role="tab" id="tab-licences" aria-selected="false" aria-controls="view-licences">Licences</button>
+          <button class="view-tab" role="tab" id="tab-events" aria-selected="false" aria-controls="view-events">Events</button>
+          <button class="view-tab" role="tab" id="tab-advertise" aria-selected="false" aria-controls="view-advertise">Advertise</button>
+          <button class="view-tab" role="tab" id="tab-checklist" aria-selected="false" aria-controls="view-checklist">Checklist</button>
+          <button class="view-tab" role="tab" id="tab-support" aria-selected="false" aria-controls="view-support">Support</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="view-guides" class="view active" role="tabpanel" aria-labelledby="tab-guides">
+      <section class="hero hero-guides">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Auckland Council · MPI · Food Act 2014</p>
+          <h1>Start your food business the right way</h1>
+          <p class="hero-sub">Step-by-step guides for food trucks, cafes, market stalls, and event catering — licences, verification, and compliance pulled from official Auckland Council resources.</p>
+        </div>
+      </section>
+      <div class="business-type-picker" role="group" aria-label="Filter guides by business type">
+        <button class="chip active" data-guide-filter="all">All</button>
+        <button class="chip" data-guide-filter="food-truck">Food truck</button>
+        <button class="chip" data-guide-filter="cafe">Cafe / restaurant</button>
+        <button class="chip" data-guide-filter="stall">Market stall</button>
+        <button class="chip" data-guide-filter="event">Events</button>
+        <button class="chip" data-guide-filter="marketing">Marketing</button>
+      </div>
+      <section class="guides-grid" id="guides-grid" aria-live="polite"></section>
+    </div>
+
+    <div id="view-licences" class="view" role="tabpanel" aria-labelledby="tab-licences" hidden>
+      <section class="hero hero-licences">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Curated council directory</p>
+          <h1>Licences &amp; registrations</h1>
+          <p class="hero-sub">Every permit, plan, and application link you need — filtered by business type with direct apply links where available.</p>
+          <div class="hero-stats">
+            <div class="hero-stat"><span id="licence-stat-count">—</span> resources</div>
+          </div>
+        </div>
+      </section>
+      <section class="search-panel">
+        <div class="search-bar-wrap">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input type="search" id="licence-search-input" class="search-input" placeholder="Search registration, alcohol, mobile trading..." autocomplete="off" aria-label="Search licences">
+          <button class="search-clear" id="licence-search-clear" hidden aria-label="Clear search">×</button>
+        </div>
+        <div class="filter-row">
+          <div class="filter-group">
+            <label for="licence-filter-type">Business type</label>
+            <select id="licence-filter-type">
+              <option value="">All types</option>
+              <option value="food-truck">Food truck / coffee cart</option>
+              <option value="cafe">Cafe / restaurant</option>
+              <option value="stall">Market stall</option>
+              <option value="home-based">Home-based</option>
+              <option value="event">Event organiser</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="licence-filter-priority">Priority</label>
+            <select id="licence-filter-priority">
+              <option value="">All priorities</option>
+              <option value="required">Required</option>
+              <option value="conditional">Conditional</option>
+              <option value="planning">Planning</option>
+              <option value="support">Support</option>
+            </select>
+          </div>
+        </div>
+        <div class="results-meta">
+          <p id="licence-results-count">Loading resources...</p>
+          <p class="data-attribution">
+            Source: <a href="https://www.aucklandcouncil.govt.nz/en/licences-regulations/business-licences/food-businesses-quality-grading.html" target="_blank" rel="noopener">Auckland Council food businesses</a>
+          </p>
+        </div>
+      </section>
+      <div class="resource-list" id="licence-list" aria-live="polite"></div>
+      <div class="empty-state" id="licence-empty" hidden>
+        <div class="empty-icon" aria-hidden="true">📋</div>
+        <h2>No matching resources</h2>
+        <p>Try a different business type or clear your search.</p>
+      </div>
+    </div>
+
+    <div id="view-events" class="view" role="tabpanel" aria-labelledby="tab-events" hidden>
+      <section class="hero hero-events">
+        <div class="hero-content">
+          <p class="hero-eyebrow">AucklandNZ · Eden Park · Ticketmaster · Auckland Live · Meetup</p>
+          <h1>Events for hospitality</h1>
+          <p class="hero-sub">Find festivals, Eden Park match days, arena concerts, and dining meetups — AucklandNZ, Eden Park, Ticketmaster, Auckland Live, Meetup, or list on OurAuckland.</p>
+          <div class="hero-stats">
+            <div class="hero-stat"><span id="event-stat-count">—</span> events loaded</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="events-mode-tabs" role="tablist" aria-label="Events mode">
+        <button class="events-mode-tab active" type="button" role="tab" data-events-mode="browse" aria-selected="true">Find events</button>
+        <button class="events-mode-tab" type="button" role="tab" data-events-mode="list" aria-selected="false">List your event</button>
+      </div>
+
+      <div id="events-browse-panel">
+      <section class="search-panel">
+        <div class="search-bar-wrap">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input type="search" id="event-search-input" class="search-input" placeholder="Search diners, markets, meetups, Matariki..." autocomplete="off" aria-label="Search events">
+          <button class="search-clear" id="event-search-clear" hidden aria-label="Clear search">×</button>
+        </div>
+        <div class="filter-row">
+          <div class="filter-group">
+            <label for="event-filter-source">Source</label>
+            <select id="event-filter-source">
+              <option value="all">All sources</option>
+              <option value="aucklandnz">AucklandNZ only</option>
+              <option value="aucklandlive">Auckland Live only</option>
+              <option value="atc">ATC only</option>
+              <option value="qtheatre">Q Theatre only</option>
+              <option value="hlt">HLT only</option>
+              <option value="nyt">NYT only</option>
+              <option value="iticket">iTicket only</option>
+              <option value="rnzb">RNZB only</option>
+              <option value="basement">Basement Theatre only</option>
+              <option value="ticketmaster">Ticketmaster only</option>
+              <option value="sparkarena">Spark Arena only</option>
+              <option value="edenpark">Eden Park only</option>
+              <option value="eventbrite">Eventbrite only</option>
+              <option value="eventfinda">Eventfinda only</option>
+              <option value="humanitix">Humanitix only</option>
+              <option value="cheeky">Cheeky Events only</option>
+              <option value="aucklandforkids">Auckland for Kids only</option>
+              <option value="fever">Fever only</option>
+              <option value="tripadvisor">TripAdvisor only</option>
+              <option value="eventcinemas">Event Cinemas only</option>
+              <option value="hoyts">HOYTS only</option>
+              <option value="rialto">Rialto only</option>
+              <option value="duedrop">Due Drop only</option>
+              <option value="nightmarkets">Night Markets only</option>
+              <option value="ftc">Food Truck Collective only</option>
+              <option value="acbmarkets">ACB Markets only</option>
+              <option value="opencircle">Open Circle only</option>
+              <option value="aucklandmarket">Auckland Markets only</option>
+              <option value="touristtrip">Trip Planner only</option>
+              <option value="meetup">Meetup only</option>
+            </select>
+          </div>
+          <div class="filter-group" id="anz-category-filter">
+            <label for="event-filter-category">AucklandNZ category</label>
+            <select id="event-filter-category">
+              <option value="">All hospitality categories</option>
+              <option value="Food-Drink">Food &amp; Drink</option>
+              <option value="Cultural-Events">Cultural Events</option>
+              <option value="Sports">Sports</option>
+              <option value="Music">Music</option>
+              <option value="Family-Kids">Family &amp; Kids</option>
+              <option value="Special-Events">Special Events</option>
+              <option value="Performing-Arts">Performing Arts</option>
+            </select>
+          </div>
+          <div class="filter-group" id="meetup-category-filter">
+            <label for="event-filter-meetup-category">Meetup category</label>
+            <select id="event-filter-meetup-category">
+              <option value="">All in-person (100 mi)</option>
+              <option value="socialActivities">Social Activities</option>
+              <option value="music">Music</option>
+              <option value="communityAndEnvironment">Community</option>
+              <option value="artAndCulture">Art &amp; Culture</option>
+              <option value="games">Games</option>
+            </select>
+          </div>
+          <div class="filter-group" id="anz-region-filter">
+            <label for="event-filter-region">AucklandNZ region</label>
+            <select id="event-filter-region">
+              <option value="">All Auckland</option>
+              <option value="Central-Auckland">Central Auckland</option>
+              <option value="North-Shore">North Shore</option>
+              <option value="South-Auckland">South Auckland</option>
+              <option value="West-Auckland">West Auckland</option>
+              <option value="East-Auckland">East Auckland</option>
+              <option value="Hibiscus-Coast">Hibiscus Coast</option>
+              <option value="Hauraki-Gulf-&-Islands">Hauraki Gulf &amp; Islands</option>
+            </select>
+          </div>
+          <div class="filter-group filter-group-check">
+            <label class="checkbox-label">
+              <input type="checkbox" id="event-filter-hospo">
+              Food truck opportunities only
+            </label>
+          </div>
+        </div>
+        <div class="results-meta">
+          <p id="event-results-count">Loading events...</p>
+          <p class="data-attribution">
+            Sources: <a href="https://www.aucklandnz.com/events" target="_blank" rel="noopener">AucklandNZ</a> · <a href="https://www.aucklandlive.co.nz/" target="_blank" rel="noopener">Auckland Live</a> · <a href="https://www.atc.co.nz/whats-on" target="_blank" rel="noopener">ATC</a> · <a href="https://www.qtheatre.co.nz/shows" target="_blank" rel="noopener">Q Theatre</a> · <a href="https://hlt.org.nz/whats-on/events-calendar/" target="_blank" rel="noopener">HLT</a> · <a href="https://nyt.nz/onstage" target="_blank" rel="noopener">NYT</a> · <a href="https://www.iticket.co.nz/" target="_blank" rel="noopener">iTicket</a> · <a href="https://rnzb.org.nz/whats-on" target="_blank" rel="noopener">RNZB</a> · <a href="https://basementtheatre.co.nz/pages/tickets" target="_blank" rel="noopener">Basement Theatre</a> · <a href="https://www.ticketmaster.co.nz/discover/auckland" target="_blank" rel="noopener">Ticketmaster</a> · <a href="https://www.sparkarena.co.nz/all-events" target="_blank" rel="noopener">Spark Arena</a> · <a href="https://edenpark.co.nz/events/" target="_blank" rel="noopener">Eden Park</a> · <a href="https://www.eventbrite.co.nz/d/new-zealand--auckland/events/" target="_blank" rel="noopener">Eventbrite Auckland</a> · <a href="https://www.eventfinda.co.nz/search?q=&amp;region%5B%5D=2" target="_blank" rel="noopener">Eventfinda Auckland</a> · <a href="https://humanitix.com/nz" target="_blank" rel="noopener">Humanitix NZ</a> · <a href="https://cheekyevents.net/location/auckland/" target="_blank" rel="noopener">Cheeky Events Auckland</a> · <a href="https://www.aucklandforkids.co.nz/whats-on-today/" target="_blank" rel="noopener">Auckland for Kids</a> · <a href="https://feverup.com/en/auckland/" target="_blank" rel="noopener">Fever Auckland</a> · <a href="https://www.tripadvisor.co.nz/Attractions-g1811027-Activities-c62-Auckland_North_Island.html" target="_blank" rel="noopener">TripAdvisor Auckland</a> · <a href="https://www.eventcinemas.co.nz/" target="_blank" rel="noopener">Event Cinemas NZ</a> · <a href="https://www.hoyts.co.nz/" target="_blank" rel="noopener">HOYTS NZ</a> · <a href="https://www.rialto.co.nz/cinema/newmarket" target="_blank" rel="noopener">Rialto Newmarket</a> · <a href="https://duedropeventscentre.org.nz/whats-on" target="_blank" rel="noopener">Due Drop Events Centre</a> · <a href="https://www.aucklandnightmarkets.co.nz/locations" target="_blank" rel="noopener">Auckland Night Markets</a> · <a href="https://foodtruckcollective.co.nz/events?stay=yes" target="_blank" rel="noopener">Food Truck Collective</a> · <a href="https://aucklandconventionbureau.com/visit/taste/markets" target="_blank" rel="noopener">ACB Markets</a> · <a href="https://markets.opencirclemarkets.com/" target="_blank" rel="noopener">Open Circle Markets</a> · <a href="https://aucklandmarketnz.co.nz/" target="_blank" rel="noopener">Auckland Markets</a> · <a href="https://touristtripplanner.com/city/auckland/street_markets" target="_blank" rel="noopener">Trip Planner markets</a> · <a href="https://www.meetup.com/find/?source=EVENTS&amp;eventType=inPerson&amp;sortField=DATETIME&amp;distance=hundredMiles&amp;location=nz--New+Zealand--Auckland" target="_blank" rel="noopener">Meetup Auckland</a>
+          </p>
+        </div>
+      </section>
+      <div class="event-loading" id="event-loading">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <p>Fetching Auckland events...</p>
+      </div>
+      <div class="event-list" id="event-list" aria-live="polite"></div>
+      <div class="empty-state" id="event-empty" hidden>
+        <div class="empty-icon" aria-hidden="true">📅</div>
+        <h2>No matching events</h2>
+        <p>Try clearing filters or browse on AucklandNZ, Eden Park, Auckland Live, Ticketmaster, Spark Arena, Eventbrite, Eventfinda, Humanitix, Cheeky Events, Auckland for Kids, Fever, TripAdvisor, Event Cinemas, HOYTS, Rialto, Due Drop, Night Markets, Food Truck Collective, ACB Markets, Open Circle, Auckland Markets, Trip Planner, or Meetup.</p>
+        <div class="empty-actions">
+          <a class="btn btn-secondary" href="https://www.aucklandnz.com/events/all-events" target="_blank" rel="noopener">AucklandNZ events</a>
+          <a class="btn btn-secondary" href="https://edenpark.co.nz/events/" target="_blank" rel="noopener">Eden Park events</a>
+          <a class="btn btn-secondary" href="https://www.eventbrite.co.nz/d/new-zealand--auckland/events/" target="_blank" rel="noopener">Eventbrite Auckland</a>
+          <a class="btn btn-secondary" href="https://www.eventfinda.co.nz/search?q=&amp;region%5B%5D=2" target="_blank" rel="noopener">Eventfinda Auckland</a>
+          <a class="btn btn-secondary" href="https://humanitix.com/nz/events/nz--auckland" target="_blank" rel="noopener">Humanitix Auckland</a>
+          <a class="btn btn-secondary" href="https://cheekyevents.net/location/auckland/" target="_blank" rel="noopener">Cheeky Events Auckland</a>
+          <a class="btn btn-secondary" href="https://www.aucklandforkids.co.nz/whats-on-today/" target="_blank" rel="noopener">Auckland for Kids today</a>
+          <a class="btn btn-secondary" href="https://feverup.com/en/auckland/" target="_blank" rel="noopener">Fever Auckland</a>
+          <a class="btn btn-secondary" href="https://www.tripadvisor.co.nz/Attractions-g1811027-Activities-c62-Auckland_North_Island.html" target="_blank" rel="noopener">TripAdvisor Auckland</a>
+          <a class="btn btn-secondary" href="https://www.eventcinemas.co.nz/" target="_blank" rel="noopener">Event Cinemas NZ</a>
+          <a class="btn btn-secondary" href="https://www.hoyts.co.nz/" target="_blank" rel="noopener">HOYTS NZ</a>
+          <a class="btn btn-secondary" href="https://www.rialto.co.nz/cinema/newmarket" target="_blank" rel="noopener">Rialto Newmarket</a>
+          <a class="btn btn-secondary" href="https://duedropeventscentre.org.nz/whats-on" target="_blank" rel="noopener">Due Drop Events Centre</a>
+          <a class="btn btn-secondary" href="https://www.aucklandnightmarkets.co.nz/locations" target="_blank" rel="noopener">Auckland Night Markets</a>
+          <a class="btn btn-secondary" href="https://foodtruckcollective.co.nz/events?stay=yes" target="_blank" rel="noopener">Food Truck Collective</a>
+          <a class="btn btn-secondary" href="https://aucklandconventionbureau.com/visit/taste/markets" target="_blank" rel="noopener">ACB Markets</a>
+          <a class="btn btn-secondary" href="https://markets.opencirclemarkets.com/" target="_blank" rel="noopener">Open Circle Markets</a>
+          <a class="btn btn-secondary" href="https://aucklandmarketnz.co.nz/" target="_blank" rel="noopener">Auckland Markets</a>
+          <a class="btn btn-secondary" href="https://touristtripplanner.com/city/auckland/street_markets" target="_blank" rel="noopener">Trip Planner markets</a>
+          <a class="btn btn-secondary" href="https://www.atc.co.nz/whats-on" target="_blank" rel="noopener">ATC What's on</a>
+          <a class="btn btn-secondary" href="https://www.qtheatre.co.nz/shows" target="_blank" rel="noopener">Q Theatre shows</a>
+          <a class="btn btn-secondary" href="https://hlt.org.nz/whats-on/events-calendar/" target="_blank" rel="noopener">HLT shows</a>
+          <a class="btn btn-secondary" href="https://nyt.nz/onstage" target="_blank" rel="noopener">NYT OnStage</a>
+          <a class="btn btn-secondary" href="https://www.iticket.co.nz/" target="_blank" rel="noopener">iTicket Auckland</a>
+          <a class="btn btn-secondary" href="https://rnzb.org.nz/whats-on" target="_blank" rel="noopener">RNZB What's On</a>
+          <a class="btn btn-secondary" href="https://basementtheatre.co.nz/pages/tickets" target="_blank" rel="noopener">Basement Theatre tickets</a>
+          <a class="btn btn-secondary" href="https://www.aucklandlive.co.nz/search/events?date=" target="_blank" rel="noopener">Auckland Live</a>
+          <a class="btn btn-secondary" href="https://www.ticketmaster.co.nz/discover/auckland" target="_blank" rel="noopener">Ticketmaster Auckland</a>
+          <a class="btn btn-secondary" href="https://www.sparkarena.co.nz/all-events" target="_blank" rel="noopener">Spark Arena events</a>
+          <a class="btn btn-secondary" href="https://www.meetup.com/find/?source=EVENTS&amp;eventType=inPerson&amp;sortField=DATETIME&amp;distance=hundredMiles&amp;location=nz--New+Zealand--Auckland" target="_blank" rel="noopener">Meetup Auckland</a>
+        </div>
+      </div>
+      <section class="events-note">
+        <p><strong>Before you trade:</strong> Food trucks and stalls need Auckland Council <a href="https://www.aucklandcouncil.govt.nz/en/licences-regulations/business-licences/food-businesses-quality-grading/open-food-business/apply-food-registration.html" target="_blank" rel="noopener">food registration</a>, and may need a <a href="https://www.aucklandcouncil.govt.nz/en/licences-regulations/business-licences/mobile-traders/open-a-mobile-trading-business.html" target="_blank" rel="noopener">mobile trading licence</a> or <a href="https://www.aucklandcouncil.govt.nz/en/licences-regulations/business-licences/mobile-traders/trade-from-public-land.html" target="_blank" rel="noopener">park trading permit</a>. Contact the event organiser separately for vendor applications.</p>
+      </section>
+      </div>
+
+      <div id="events-list-panel" hidden>
+        <section class="list-event-intro">
+          <p>Streamline your <a href="https://ourauckland.aucklandcouncil.govt.nz/pages/listing-an-event/" target="_blank" rel="noopener">OurAuckland listing</a> — draft everything here, then copy into the council's 4-step form. Most listings publish within <strong>10 business days</strong>.</p>
+          <p class="list-event-intro-note">OurAuckland promotes council-associated events (delivered, funded, sponsored, supported, or facilitated). Pure commercial ads without council connection may be declined.</p>
+        </section>
+
+        <div id="list-eligibility-status" class="eligibility-box eligibility-box--warn" role="status"></div>
+
+        <nav class="list-wizard-nav" aria-label="Listing steps">
+          <button type="button" class="list-wizard-nav-btn active" data-step="1">1. Contact</button>
+          <button type="button" class="list-wizard-nav-btn" data-step="2">2. Event</button>
+          <button type="button" class="list-wizard-nav-btn" data-step="3">3. Contact public</button>
+          <button type="button" class="list-wizard-nav-btn" data-step="4">4. Review</button>
+        </nav>
+
+        <form id="list-event-form" class="list-event-form" novalidate>
+          <fieldset class="list-wizard-step" data-step="1">
+            <legend>Step 1 — Author contact (admin only)</legend>
+            <div class="form-grid">
+              <label>First name *<input name="firstName" required autocomplete="given-name"></label>
+              <label>Last name *<input name="lastName" required autocomplete="family-name"></label>
+              <label>Email *<input name="email" type="email" required autocomplete="email"></label>
+              <label>Phone *<input name="phone" type="tel" required autocomplete="tel"></label>
+              <label class="form-span-2">Company / premises<input name="company" autocomplete="organization" placeholder="e.g. Your cafe or venue name"></label>
+            </div>
+            <fieldset class="association-fieldset">
+              <legend>How is this event associated with Auckland Council? *</legend>
+              <div class="association-grid">
+                <label><input type="checkbox" name="associations" value="delivered"> Delivered</label>
+                <label><input type="checkbox" name="associations" value="funded"> Funded</label>
+                <label><input type="checkbox" name="associations" value="sponsored"> Sponsored</label>
+                <label><input type="checkbox" name="associations" value="supported"> Supported</label>
+                <label><input type="checkbox" name="associations" value="facilitated"> Facilitated</label>
+                <label><input type="checkbox" name="associations" value="not-associated"> Not associated</label>
+              </div>
+              <label class="form-span-2">Notes (required if not associated)<textarea name="associationNotes" rows="3" placeholder="e.g. Hosted at Ellen Melville Centre; council community venue booking"></textarea></label>
+            </fieldset>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-primary list-wizard-next" data-step="1">Next: event details</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="list-wizard-step" data-step="2" hidden>
+            <legend>Step 2 — Event name, location &amp; dates</legend>
+            <div class="form-grid">
+              <label class="form-span-2">Event name *<input name="eventName" required placeholder="e.g. Winter supper series at [Premises]"></label>
+              <label>Event type *
+                <select name="eventType" required>
+                  <option value="Food / Drink">Food / Drink</option>
+                  <option value="Festival">Festival</option>
+                  <option value="Markets / Trade">Markets / Trade</option>
+                  <option value="Cultural">Cultural</option>
+                  <option value="Community">Community</option>
+                  <option value="Music">Music</option>
+                  <option value="Whanau friendly">Whanau friendly</option>
+                  <option value="Workshops">Workshops</option>
+                </select>
+              </label>
+              <label>Location type
+                <select name="locationType">
+                  <option value="single">Single location</option>
+                  <option value="multiple">Multiple locations</option>
+                  <option value="region">Region wide</option>
+                </select>
+              </label>
+              <label class="form-span-2">Venue name *<input name="venueName" required placeholder="Your premises or council venue name"></label>
+              <label class="form-span-2">Street address *<input name="venueAddress" required placeholder="Full address including suburb"></label>
+              <label class="form-span-2">Extra location details<textarea name="venueDetails" rows="2" placeholder="Floor, room, meeting point, parking"></textarea></label>
+              <label>Local ward *
+                <select name="ward" required>
+                  <option value="">Select ward</option>
+                  <option>Albany Ward</option>
+                  <option>Albert-Eden-Puketāpapa Ward</option>
+                  <option>Franklin Ward</option>
+                  <option>Howick Ward</option>
+                  <option>Manukau Ward</option>
+                  <option>Manurewa-Papakura Ward</option>
+                  <option>Maungakiekie-Tāmaki Ward</option>
+                  <option>North Shore Ward</option>
+                  <option>Ōrākei Ward</option>
+                  <option>Rodney Ward</option>
+                  <option>Waitākere Ward</option>
+                  <option>Waitematā &amp; Gulf Ward</option>
+                  <option>Whau Ward</option>
+                </select>
+              </label>
+              <label>At council library?
+                <select name="atLibrary"><option value="no">No</option><option value="yes">Yes</option></select>
+              </label>
+              <label>At council community venue?
+                <select name="atCouncilVenue"><option value="no">No</option><option value="yes">Yes</option></select>
+              </label>
+              <label>Start date *<input name="startDate" type="date" required></label>
+              <label>End date<input name="endDate" type="date"></label>
+              <label>Start time<input name="startTime" type="time"></label>
+              <label>End time<input name="endTime" type="time"></label>
+              <label>Cost *
+                <select name="costType"><option value="free">Free</option><option value="paid" selected>Paid</option></select>
+              </label>
+              <label>Cost details<input name="costDetails" placeholder="e.g. $45 per person, kids free"></label>
+              <label>Booking required?
+                <select name="bookingRequired"><option value="no">No</option><option value="yes">Yes</option></select>
+              </label>
+              <label>Booking website<input name="bookingWebsite" type="url" placeholder="https://"></label>
+              <label>Booking phone<input name="bookingPhone" type="tel"></label>
+              <label>Booking email<input name="bookingEmail" type="email"></label>
+              <label class="form-span-2">Event website<input name="eventWebsite" type="url" placeholder="https://"></label>
+              <label class="form-span-2">Event description *
+                <textarea name="description" rows="6" required placeholder="What guests can expect, who it's for, timetable, transport/parking advice..."></textarea>
+              </label>
+            </div>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-secondary list-wizard-prev" data-step="2">Back</button>
+              <button type="button" class="btn btn-primary list-wizard-next" data-step="2">Next: public contact</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="list-wizard-step" data-step="3" hidden>
+            <legend>Step 3 — Public contact &amp; images</legend>
+            <label class="checkbox-label form-span-2">
+              <input type="checkbox" name="useAuthorContact" checked>
+              Use author contact details for the public listing
+            </label>
+            <div class="form-grid" id="public-contact-fields">
+              <label>Public contact name<input name="publicContactName"></label>
+              <label>Public email<input name="publicContactEmail" type="email"></label>
+              <label>Public phone<input name="publicContactPhone" type="tel"></label>
+            </div>
+            <div class="image-requirements">
+              <h3>Image requirements (upload on council form)</h3>
+              <ul>
+                <li>JPG or PNG, each under 2 MB</li>
+                <li>At least 480 × 365 pixels</li>
+                <li>No text on images</li>
+                <li>1 main image required; up to 6 total</li>
+              </ul>
+              <label class="checkbox-label">
+                <input type="checkbox" name="imagesReady">
+                I have images ready that meet OurAuckland specs
+              </label>
+            </div>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-secondary list-wizard-prev" data-step="3">Back</button>
+              <button type="button" class="btn btn-primary list-wizard-next" data-step="3">Review draft</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="list-wizard-step" data-step="4" hidden>
+            <legend>Step 4 — Review &amp; submit on OurAuckland</legend>
+            <div id="list-event-review" class="list-event-review" aria-live="polite"></div>
+            <div class="wizard-actions wizard-actions-submit">
+              <button type="button" class="btn btn-secondary" id="list-event-copy">Copy draft</button>
+              <button type="button" class="btn btn-secondary" id="list-event-reset">Clear draft</button>
+              <button type="button" class="btn btn-primary" id="list-event-submit-council" disabled>Open council form</button>
+            </div>
+            <p class="list-submit-note">You cannot edit after submitting until an administrator approves. Need help? Email <a href="mailto:ourauckland@aucklandcouncil.govt.nz">ourauckland@aucklandcouncil.govt.nz</a></p>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <div id="view-advertise" class="view" role="tabpanel" aria-labelledby="tab-advertise" hidden>
+      <section class="hero hero-advertise">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Meta Business Suite · Facebook · Instagram</p>
+          <h1>Advertise your hospitality business</h1>
+          <p class="hero-sub">Plan Facebook and Instagram ad campaigns in Meta Business Suite — draft audiences, copy, and budgets here, then launch in Ads Manager.</p>
+          <div class="hero-stats">
+            <div class="hero-stat"><a href="https://business.facebook.com/" target="_blank" rel="noopener">Meta Business Suite</a></div>
+            <div class="hero-stat"><a href="https://www.facebook.com/adsmanager" target="_blank" rel="noopener">Ads Manager</a></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="events-mode-tabs" role="tablist" aria-label="Advertising mode">
+        <button class="events-mode-tab active" type="button" role="tab" data-advertise-mode="plan" aria-selected="true">Plan campaign</button>
+        <button class="events-mode-tab" type="button" role="tab" data-advertise-mode="resources" aria-selected="false">Meta resources</button>
+      </div>
+
+      <div id="advertise-plan-panel">
+        <section class="list-event-intro">
+          <p>Draft your ad in the <strong>Advertise</strong> wizard, then copy the brief into <a href="https://www.facebook.com/adsmanager" target="_blank" rel="noopener">Meta Ads Manager</a>. You need a Facebook Page (and ideally Instagram) connected to a Meta Business Portfolio with a payment method.</p>
+          <p class="list-event-intro-note">Paid social ads are separate from <a href="https://ourauckland.aucklandcouncil.govt.nz/pages/listing-an-event/" target="_blank" rel="noopener">OurAuckland</a> event listings. Council calendar listings are free but eligibility rules apply.</p>
+        </section>
+
+        <div id="meta-ad-readiness" class="eligibility-box eligibility-box--warn" role="status"></div>
+
+        <nav class="list-wizard-nav" aria-label="Ad campaign steps">
+          <button type="button" class="list-wizard-nav-btn active" data-meta-ad-step="1">1. Business</button>
+          <button type="button" class="list-wizard-nav-btn" data-meta-ad-step="2">2. Audience</button>
+          <button type="button" class="list-wizard-nav-btn" data-meta-ad-step="3">3. Creative</button>
+          <button type="button" class="list-wizard-nav-btn" data-meta-ad-step="4">4. Budget</button>
+        </nav>
+
+        <form id="meta-ad-form" class="list-event-form" novalidate>
+          <fieldset class="list-wizard-step" data-step="1">
+            <legend>Step 1 — Business &amp; Meta accounts</legend>
+            <div class="form-grid">
+              <label>Business name *<input name="businessName" required placeholder="e.g. The Rolling Kitchen"></label>
+              <label>Business type *
+                <select name="businessType" required>
+                  <option value="food-truck">Food truck / coffee cart</option>
+                  <option value="cafe">Cafe / restaurant</option>
+                  <option value="stall">Market stall</option>
+                  <option value="event">Event / festival</option>
+                </select>
+              </label>
+              <label class="form-span-2">Facebook Page URL<input name="metaPageUrl" type="url" placeholder="https://www.facebook.com/yourpage"></label>
+              <label>Instagram handle<input name="instagramHandle" placeholder="@yourvenue"></label>
+              <label>Website / menu URL<input name="websiteUrl" type="url" placeholder="https://"></label>
+              <label>Campaign objective *
+                <select name="objective" required>
+                  <option value="awareness">Awareness — get discovered locally</option>
+                  <option value="traffic">Traffic — menu, bookings, or website</option>
+                  <option value="engagement">Engagement — event RSVPs &amp; comments</option>
+                  <option value="leads">Leads — catering enquiries</option>
+                  <option value="sales">Sales — online orders or vouchers</option>
+                </select>
+              </label>
+            </div>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-secondary" id="meta-ad-suite">Open Business Suite</button>
+              <button type="button" class="btn btn-primary meta-ad-next" data-step="1">Next: audience</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="list-wizard-step" data-step="2" hidden>
+            <legend>Step 2 — Audience &amp; placements</legend>
+            <fieldset class="association-fieldset">
+              <legend>Placements (select at least one)</legend>
+              <div class="association-grid">
+                <label><input type="checkbox" name="placements" value="facebook" checked> Facebook feed</label>
+                <label><input type="checkbox" name="placements" value="instagram" checked> Instagram feed</label>
+                <label><input type="checkbox" name="placements" value="stories" checked> Stories</label>
+                <label><input type="checkbox" name="placements" value="reels"> Reels</label>
+                <label><input type="checkbox" name="placements" value="messenger"> Messenger</label>
+              </div>
+            </fieldset>
+            <div class="form-grid">
+              <label>Radius from venue (km)<input name="audienceRadius" type="number" min="1" max="80" value="15"></label>
+              <label>Age range
+                <span class="age-range-inputs">
+                  <input name="audienceAgeMin" type="number" min="18" max="65" value="25" aria-label="Minimum age"> –
+                  <input name="audienceAgeMax" type="number" min="18" max="65" value="54" aria-label="Maximum age">
+                </span>
+              </label>
+              <label class="form-span-2">Interest keywords<input name="audienceInterests" placeholder="foodies, Auckland brunch, street food, local markets"></label>
+              <label class="form-span-2">Audience notes<textarea name="audienceNotes" rows="2" placeholder="e.g. Target office workers lunch Mon–Fri; exclude under-18 if alcohol imagery"></textarea></label>
+            </div>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-secondary meta-ad-prev" data-step="2">Back</button>
+              <button type="button" class="btn btn-primary meta-ad-next" data-step="2">Next: creative</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="list-wizard-step" data-step="3" hidden>
+            <legend>Step 3 — Ad copy &amp; creative</legend>
+            <div class="form-grid">
+              <label class="form-span-2">Headline *<input name="headline" required placeholder="e.g. Winter supper series — book your table"></label>
+              <label class="form-span-2">Primary text *
+                <textarea name="primaryText" rows="4" required placeholder="Hook + what you serve + Auckland location + offer or event date"></textarea>
+              </label>
+              <label class="form-span-2">Link description<input name="description" placeholder="Short line under the headline in some placements"></label>
+              <label>Call to action
+                <select name="callToAction">
+                  <option>Book now</option>
+                  <option>Learn more</option>
+                  <option>Get directions</option>
+                  <option>Order now</option>
+                  <option>Send message</option>
+                  <option>Sign up</option>
+                  <option>Call now</option>
+                </select>
+              </label>
+              <label>Destination URL<input name="destinationUrl" type="url" placeholder="Booking page, menu, or event link"></label>
+              <label class="form-span-2">Offer or event details<textarea name="offerDetails" rows="2" placeholder="e.g. $15 lunch special Tue–Thu; Matariki tasting menu 28–30 June"></textarea></label>
+            </div>
+            <div class="image-requirements">
+              <h3>Creative specs (prepare before Ads Manager)</h3>
+              <ul>
+                <li>Square 1080×1080 px or vertical 1080×1920 px for Stories/Reels</li>
+                <li>Minimal text on image — heavy text may reduce reach</li>
+                <li>Show real food, venue, or truck</li>
+                <li>Alcohol imagery: 18+ targeting and ASA codes apply</li>
+              </ul>
+              <label class="checkbox-label">
+                <input type="checkbox" name="imagesReady">
+                I have images or video ready for Meta ad specs
+              </label>
+            </div>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-secondary meta-ad-prev" data-step="3">Back</button>
+              <button type="button" class="btn btn-primary meta-ad-next" data-step="3">Next: budget</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="list-wizard-step" data-step="4" hidden>
+            <legend>Step 4 — Budget, compliance &amp; launch</legend>
+            <div class="form-grid">
+              <label>Campaign start<input name="startDate" type="date"></label>
+              <label>Campaign end<input name="endDate" type="date"></label>
+              <label>Daily budget (NZD) *<input name="dailyBudget" type="number" min="1" step="1" placeholder="e.g. 20"></label>
+              <label>Total budget cap (NZD)<input name="totalBudget" type="number" min="1" step="1" placeholder="Optional max spend"></label>
+            </div>
+            <fieldset class="association-fieldset">
+              <legend>Compliance before you spend</legend>
+              <label class="checkbox-label form-span-2">
+                <input type="checkbox" name="complianceFood">
+                My food business holds current Auckland Council food registration (or is exempt for this promotion)
+              </label>
+              <label class="checkbox-label form-span-2">
+                <input type="checkbox" name="complianceTruthful">
+                Ad claims (prices, hours, menus) are accurate and I can substantiate them
+              </label>
+              <label class="checkbox-label form-span-2">
+                <input type="checkbox" name="complianceAlcohol">
+                If promoting alcohol: I will follow NZ ASA codes and set 18+ age targeting in Meta
+              </label>
+            </fieldset>
+            <div id="meta-ad-review" class="list-event-review" aria-live="polite"></div>
+            <div class="wizard-actions wizard-actions-submit">
+              <button type="button" class="btn btn-secondary" id="meta-ad-copy">Copy draft</button>
+              <button type="button" class="btn btn-secondary" id="meta-ad-reset">Clear draft</button>
+              <button type="button" class="btn btn-primary" id="meta-ad-launch" disabled>Open Ads Manager</button>
+            </div>
+            <p class="list-submit-note">Meta reviews ads before they run. Start with a modest daily budget, test one audience, then scale what works. <a href="https://www.facebook.com/policies/ads" target="_blank" rel="noopener">Advertising policies</a> · <a href="https://www.asa.co.nz/codes/" target="_blank" rel="noopener">NZ ASA codes</a></p>
+          </fieldset>
+        </form>
+      </div>
+
+      <div id="advertise-resources-panel" hidden>
+        <p class="results-meta" style="margin-bottom:1rem;">Official Meta and NZ advertising resources for hospitality businesses.</p>
+        <div class="resource-list" id="meta-resource-list" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div id="view-checklist" class="view" role="tabpanel" aria-labelledby="tab-checklist" hidden>
+      <section class="hero hero-checklist">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Startup roadmap</p>
+          <h1>Opening checklist</h1>
+          <p class="hero-sub">Tick off each step as you go. Progress saves in your browser — pick your business type to see the right path.</p>
+        </div>
+      </section>
+      <div class="checklist-picker">
+        <label for="checklist-type">I'm starting a</label>
+        <select id="checklist-type">
+          <option value="food-truck">Food truck / coffee cart</option>
+          <option value="cafe">Cafe or restaurant</option>
+          <option value="stall">Market / fundraising stall</option>
+          <option value="event">Event with food vendors</option>
+        </select>
+      </div>
+      <div class="checklist-progress">
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="checklist-progress-bar">
+          <div class="progress-fill" id="checklist-progress-fill"></div>
+        </div>
+        <p id="checklist-progress-text">0 of 0 complete</p>
+        <button class="btn btn-secondary btn-sm" id="checklist-reset" type="button">Reset checklist</button>
+      </div>
+      <ol class="checklist" id="checklist-items" aria-live="polite"></ol>
+    </div>
+
+    <div id="view-support" class="view" role="tabpanel" aria-labelledby="tab-support" hidden>
+      <section class="hero hero-support">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Get help before you apply</p>
+          <h1>Council &amp; MPI contacts</h1>
+          <p class="hero-sub">The right inbox saves weeks. Hospitality support for startups, environmental health for registration paperwork, MPI for food plan questions.</p>
+        </div>
+      </section>
+      <div class="support-cta">
+        <a class="btn btn-primary" href="https://www.aucklandcouncil.govt.nz/en/licences-regulations/business-licences/hospitality-support-quick-help-form.html" target="_blank" rel="noopener">Hospitality quick-help form</a>
+        <a class="btn btn-secondary" href="mailto:hosposupport@aucklandcouncil.govt.nz">Email hosposupport</a>
+      </div>
+      <div class="contact-list" id="contact-list" aria-live="polite"></div>
+      <section class="fees-note">
+        <h2>Fees &amp; timeframes to budget for</h2>
+        <ul>
+          <li><strong>Food registration</strong> — pay before processing; up to 25 working days</li>
+          <li><strong>Verification</strong> — first visit within 6 weeks of opening; invoiced after visit</li>
+          <li><strong>Food Business Levy</strong> — annual levy plus collection fee (see council fee schedule)</li>
+          <li><strong>Mobile trading</strong> — meet council before applying; park permits are separate</li>
+        </ul>
+        <a href="https://www.aucklandcouncil.govt.nz/en/licences-regulations/business-licences/food-alcohol-fees-charges.html" target="_blank" rel="noopener" class="link-arrow">View food &amp; alcohol fees →</a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Local resource guide for Auckland hospitality businesses. Always confirm requirements on <a href="https://www.aucklandcouncil.govt.nz/en/licences-regulations/business-licences/food-businesses-quality-grading.html" target="_blank" rel="noopener">Auckland Council</a> before you trade.</p>
+    <p class="footer-note">Not legal advice — council and MPI rules change. Check official sources for current fees and forms.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/guides.js"></script>
+  <script src="js/licences.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/list-event.js"></script>
+  <script src="js/meta-ad.js"></script>
+  <script src="js/checklist.js"></script>
+  <script src="js/support.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

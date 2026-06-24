@@ -1,0 +1,92 @@
+[
+  {
+    "id": "ourauckland",
+    "name": "OurAuckland event listings",
+    "org": "Auckland Council",
+    "role": "Submit & enquire about event listings",
+    "email": "ourauckland@aucklandcouncil.govt.nz",
+    "phone": null,
+    "url": "https://ourauckland.aucklandcouncil.govt.nz/pages/listing-an-event/",
+    "notes": "Most listings publish within 10 business days. Use the Hospitality Guide draft wizard before opening the council form."
+  },
+  {
+    "id": "hosposupport",
+    "name": "Hospitality support",
+    "org": "Auckland Council",
+    "role": "Starting cafes, restaurants, food trucks",
+    "email": "hosposupport@aucklandcouncil.govt.nz",
+    "phone": null,
+    "url": "https://www.aucklandcouncil.govt.nz/en/licences-regulations/business-licences/hospitality-support-quick-help-form.html",
+    "notes": "Email or complete the quick-help form for personalised startup advice."
+  },
+  {
+    "id": "ehsupport",
+    "name": "Environmental health support",
+    "org": "Auckland Council",
+    "role": "Food registration applications & renewals",
+    "email": "ehsupport@aklc.govt.nz",
+    "phone": null,
+    "url": "https://www.aucklandcouncil.govt.nz/en/licences-regulations/business-licences/food-businesses-quality-grading/open-food-business/apply-food-registration.html",
+    "notes": "Send completed Scope of Operations and multi-site forms here."
+  },
+  {
+    "id": "foodsafetyofficer",
+    "name": "Food safety officers (events)",
+    "org": "Auckland Council",
+    "role": "Paid event inspections",
+    "email": "foodsafetyofficer@aucklandcouncil.govt.nz",
+    "phone": null,
+    "url": null,
+    "notes": "Request event inspections at least four weeks before the event date."
+  },
+  {
+    "id": "planning-helpdesk",
+    "name": "Planning helpdesk",
+    "org": "Auckland Council",
+    "role": "Resource consents & market planning",
+    "email": null,
+    "phone": "09 301 0101",
+    "url": "https://www.aucklandcouncil.govt.nz/en/building-and-consents.html",
+    "notes": "Ask whether you need resource consent for markets, fit-outs, or change of use."
+  },
+  {
+    "id": "mpi-helpline",
+    "name": "MPI Food Safety Helpline",
+    "org": "Ministry for Primary Industries",
+    "role": "Food Act rules & plan selection",
+    "email": null,
+    "phone": "0800 00 83 33",
+    "url": "https://www.mpi.govt.nz/food-business/food-safety-rules",
+    "notes": "Use My Food Rules online, or call if your business type is unclear."
+  },
+  {
+    "id": "food-registration-online",
+    "name": "Food registration (online)",
+    "org": "Auckland Council",
+    "role": "Apply & pay for food registration",
+    "email": null,
+    "phone": null,
+    "url": "https://onlineservices.aucklandcouncil.govt.nz/councilonline/yform/food?productCode=FOODACT&viewStatus=new&licenceType=FOOD_ACT",
+    "notes": "Have your Scope of Operations and site plan ready before you start."
+  },
+  {
+    "id": "mpi-register",
+    "name": "MPI public register",
+    "org": "Ministry for Primary Industries",
+    "role": "Verify operator registration",
+    "email": null,
+    "phone": null,
+    "url": "https://mpi.my.salesforce-sites.com/publicregister",
+    "notes": "Search all NZ food business registrations — useful for event organisers."
+  },
+  {
+    "id": "nzbn",
+    "name": "New Zealand Business Number",
+    "org": "NZBN",
+    "role": "Business identity for registration",
+    "email": null,
+    "phone": null,
+    "url": "https://www.nzbn.govt.nz/",
+    "notes": "Your NZBN must stay the same to renew registration. A changed NZBN requires re-registration."
+  }
+]
